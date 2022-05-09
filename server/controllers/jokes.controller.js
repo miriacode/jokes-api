@@ -37,3 +37,10 @@ module.exports.deleteJoke = (req, res) => {
         .then(result => res.json({result: result}))
         .catch(error => res.json({message: "There was a mistake "+ error}));
 }
+
+//READ ONE (RANDOM) - joke
+module.exports.findRandomJoke = (req, res) => {
+    Joke.aggregate([{ $sample: { size: 1 } }])
+        .then(joke => res.json({joke: joke}))
+        .catch(error => res.json({message: "There was a mistake "+ error}));
+}
